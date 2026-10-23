@@ -40,10 +40,10 @@ export default function ShareModal({ open, onClose, shareUrl, chart, birth, high
     try {
       const dataURL = await captureShareCard();
       if (!dataURL) {
-        alert('图片生成失败，请截图保存或刷新重试');
+        alert('圖片生成失敗，請截圖儲存或重新整理重試');
         return;
       }
-      downloadDataURL(dataURL, `紫微命盘_${Date.now()}.png`);
+      downloadDataURL(dataURL, `紫微命盤_${Date.now()}.png`);
     } finally {
       setDownloading(false);
     }
@@ -75,14 +75,14 @@ export default function ShareModal({ open, onClose, shareUrl, chart, birth, high
               boxShadow: '0 24px 60px rgba(0,0,0,0.3)',
             }}
           >
-            {/* 顶部标题 */}
+            {/* 頂部標題 */}
             <div style={{
               padding: '14px 18px',
               borderBottom: '1px solid rgba(184,146,42,0.15)',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             }}>
               <div style={{ fontSize: '14px', fontWeight: 600, color: '#3d2f10', letterSpacing: '0.12em' }}>
-                ✦ 分享命盘
+                ✦ 分享命盤
               </div>
               <button onClick={onClose}
                 style={{
@@ -93,7 +93,7 @@ export default function ShareModal({ open, onClose, shareUrl, chart, birth, high
               >×</button>
             </div>
 
-            {/* 卡片图预览（实际渲染） */}
+            {/* 卡片圖預覽（實際渲染） */}
             <div style={{ padding: '20px', background: '#fbf6e8', display: 'flex', justifyContent: 'center', overflowX: 'auto' }}>
               {chart && (
                 <ShareCardCanvas chart={chart} birth={birth} highlight={highlight} />
@@ -101,10 +101,10 @@ export default function ShareModal({ open, onClose, shareUrl, chart, birth, high
             </div>
 
             <div style={{ padding: '0 20px 12px', textAlign: 'center', fontSize: '11px', color: '#a89b7c', letterSpacing: '0.05em' }}>
-              ↑ 朋友圈 / 微信 / 抖音 / 小红书 都能用
+              ↑ 朋友圈 / 微信 / 抖音 / 小紅書 都能用
             </div>
 
-            {/* 操作区 */}
+            {/* 操作區 */}
             <div style={{ padding: '0 20px 20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <button onClick={downloadImage} disabled={downloading}
                 style={{
@@ -116,7 +116,7 @@ export default function ShareModal({ open, onClose, shareUrl, chart, birth, high
                   opacity: downloading ? 0.7 : 1,
                 }}
               >
-                {downloading ? '生成中…' : '⬇ 下载分享图'}
+                {downloading ? '生成中…' : '⬇ 下載分享圖'}
               </button>
 
               <button onClick={copyLink}
@@ -127,7 +127,7 @@ export default function ShareModal({ open, onClose, shareUrl, chart, birth, high
                   cursor: 'pointer',
                 }}
               >
-                {copied ? '✓ 已复制链接' : '🔗 复制命盘链接'}
+                {copied ? '✓ 已複製連結' : '🔗 複製命盤連結'}
               </button>
 
               <div style={{
@@ -136,8 +136,8 @@ export default function ShareModal({ open, onClose, shareUrl, chart, birth, high
                 borderRadius: '8px', marginTop: '4px',
               }}>
                 <div style={{ marginBottom: '4px', fontWeight: 600, color: '#8b6a14' }}>使用提示：</div>
-                · 下载图片可发朋友圈 / 抖音 / 小红书<br />
-                · 复制链接发给微信好友，对方点开看自己的盘起点
+                · 下載圖片可發朋友圈 / 抖音 / 小紅書<br />
+                · 複製連結發給微信好友，對方點開看自己的盤起點
               </div>
             </div>
           </motion.div>

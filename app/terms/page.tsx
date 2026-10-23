@@ -1,4 +1,4 @@
-export const metadata = { title: '服务条款 · 紫微命盘', description: '紫微命盘服务条款与用户协议' };
+export const metadata = { title: '服務條款 · 紫微命盤', description: '紫微命盤服務條款與使用者協議' };
 
 export default function TermsPage() {
   return (
@@ -6,53 +6,53 @@ export default function TermsPage() {
       <header style={{ position: 'sticky', top: 0, zIndex: 50, background: 'var(--bg-0)', borderBottom: '1px solid var(--bdr)', padding: '14px 24px', display: 'flex', alignItems: 'center', gap: '16px' }}>
         <a href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--tx-3)', textDecoration: 'none' }}>
           <span style={{ fontSize: '16px' }}>‹</span>
-          <span>返回首页</span>
+          <span>返回首頁</span>
         </a>
         <div style={{ width: '1px', height: '20px', background: 'var(--bdr-med)' }} />
-        <span style={{ fontSize: '12px', color: 'var(--ac)', letterSpacing: '0.2em' }}>紫微命盘</span>
+        <span style={{ fontSize: '12px', color: 'var(--ac)', letterSpacing: '0.2em' }}>紫微命盤</span>
       </header>
       <main style={{ maxWidth: 800, margin: '0 auto', padding: '60px 24px 80px', color: 'var(--tx-1)', lineHeight: 1.8 }}>
-        <h1 style={{ fontSize: 28, fontWeight: 600, marginBottom: 8 }}>服务条款</h1>
-        <p style={{ fontSize: 12, color: 'var(--tx-3)', marginBottom: 32 }}>最后更新：2026年4月</p>
+        <h1 style={{ fontSize: 28, fontWeight: 600, marginBottom: 8 }}>服務條款</h1>
+        <p style={{ fontSize: 12, color: 'var(--tx-3)', marginBottom: 32 }}>最後更新：2026年4月</p>
 
-      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>1. 服务概述</h2>
-      <p>紫微命盘（以下简称"本平台"）基于倪海厦《天纪》紫微斗数体系提供命盘排盘与解读服务。本平台所有命理内容仅供参考，<strong>不构成任何医疗、投资、法律、心理咨询或人生重大决策建议</strong>。</p>
+      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>1. 服務概述</h2>
+      <p>紫微命盤（以下簡稱"本平臺"）基於倪海廈《天紀》紫微斗數體系提供命盤排盤與解讀服務。本平臺所有命理內容僅供參考，<strong>不構成任何醫療、投資、法律、心理諮詢或人生重大決策建議</strong>。</p>
 
-      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>2. 用户行为规范</h2>
-      <p>使用本平台即表示您同意：</p>
+      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>2. 使用者行為規範</h2>
+      <p>使用本平臺即表示您同意：</p>
       <ul style={{ paddingLeft: 24 }}>
-        <li>仅出于合法、个人参考目的使用本平台</li>
-        <li>不传播本平台内容用于商业销售、转载或公开发布</li>
-        <li>不进行扰乱平台正常运行的行为</li>
-        <li>提交的出生信息真实有效；本平台对错误信息导致的解读偏差不承担责任</li>
+        <li>僅出於合法、個人參考目的使用本平臺</li>
+        <li>不傳播本平臺內容用於商業銷售、轉載或公開發布</li>
+        <li>不進行擾亂平臺正常執行的行為</li>
+        <li>提交的出生資訊真實有效；本平臺對錯誤資訊導致的解讀偏差不承擔責任</li>
       </ul>
 
-      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>3. 知识产权与禁止条款 · 反爬反训练</h2>
+      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>3. 智慧財產權與禁止條款 · 反爬反訓練</h2>
       <p style={{ background: 'rgba(168,50,40,0.06)', border: '1px solid rgba(168,50,40,0.2)', padding: 16, borderRadius: 8 }}>
-        <strong>本平台所有命理内容、知识库（含 14 主星 × 12 宫 × 男女 × 四化 × 大限流年的全部解读文本）、UI 设计、算法整合方案、案例库均为本平台原创或经合法整理。</strong><br/><br/>
-        严格禁止以下行为，违者保留追究民事赔偿与刑事责任的权利：<br/>
-        ① 通过爬虫、自动化脚本、批量调用 API 等任何技术手段抓取本平台内容；<br/>
-        ② 将本平台生成的命盘解读、文本、API 响应数据**用于训练任何机器学习模型**（含但不限于大语言模型、命理生成模型、文本生成模型等）；<br/>
-        ③ 将本平台生成的内容转售、发布到其他网站、APP、自媒体账号；<br/>
-        ④ 反编译、复制、修改本平台前端或后端代码并以"自营"方式提供同类服务。<br/><br/>
-        本平台输出文本嵌入有指纹追溯水印，违规复制 / 训练所产生的输出可被检测追溯。一经发现违规，本平台有权要求 <strong>每例违约赔偿 100 万元人民币</strong>，并保留向法院提起诉讼及配合公安机关调查的权利。
+        <strong>本平臺所有命理內容、知識庫（含 14 主星 × 12 宮 × 男女 × 四化 × 大限流年的全部解讀文本）、UI 設計、演算法整合方案、案例庫均為本平臺原創或經合法整理。</strong><br/><br/>
+        嚴格禁止以下行為，違者保留追究民事賠償與刑事責任的權利：<br/>
+        ① 通過爬蟲、自動化指令碼、批次呼叫 API 等任何技術手段抓取本平臺內容；<br/>
+        ② 將本平臺生成的命盤解讀、文本、API 響應資料**用於訓練任何機器學習模型**（含但不限於大語言模型、命理生成模型、文本生成模型等）；<br/>
+        ③ 將本平臺生成的內容轉售、釋出到其他網站、APP、自媒體賬號；<br/>
+        ④ 反編譯、複製、修改本平臺前端或後端程式碼並以"自營"方式提供同類服務。<br/><br/>
+        本平臺輸出文本嵌入有指紋追溯水印，違規復制 / 訓練所產生的輸出可被檢測追溯。一經發現違規，本平臺有權要求 <strong>每例違約賠償 100 萬元人民幣</strong>，並保留向法院提起訴訟及配合公安機關調查的權利。
       </p>
 
-      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>4. 免责声明</h2>
-      <p>本平台命理内容基于传统紫微斗数与倪海厦体系的知识整理，<strong>不保证 100% 准确</strong>。命运受天、地、人三才共同影响，本平台输出仅作为认识自我的参考，使用者应理性看待，不应过度依赖任何单一命理判断。</p>
-      <p>因使用本平台内容产生的任何后果（包括但不限于决策失误、心理影响、关系变化等），本平台不承担法律责任。</p>
+      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>4. 免責宣告</h2>
+      <p>本平臺命理內容基於傳統紫微斗數與倪海廈體系的知識整理，<strong>不保證 100% 準確</strong>。命運受天、地、人三才共同影響，本平臺輸出僅作為認識自我的參考，使用者應理性看待，不應過度依賴任何單一命理判斷。</p>
+      <p>因使用本平臺內容產生的任何後果（包括但不限於決策失誤、心理影響、關係變化等），本平臺不承擔法律責任。</p>
 
-      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>5. 服务变更与终止</h2>
-      <p>本平台保留随时调整、暂停或终止部分或全部服务的权利。重大变更将以站内公告或邮件方式通知用户。</p>
+      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>5. 服務變更與終止</h2>
+      <p>本平臺保留隨時調整、暫停或終止部分或全部服務的權利。重大變更將以站內公告或郵件方式通知使用者。</p>
 
-      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>6. 法律适用与争议解决</h2>
-      <p>本条款适用中华人民共和国法律。若发生争议，双方应友好协商；协商不成的，提交本平台运营主体所在地有管辖权的人民法院诉讼解决。</p>
+      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>6. 法律適用與爭議解決</h2>
+      <p>本條款適用中華人民共和國法律。若發生爭議，雙方應友好協商；協商不成的，提交本平臺運營主體所在地有管轄權的人民法院訴訟解決。</p>
 
-      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>7. 联系方式</h2>
-      <p>如有疑问，请通过本平台公布的客服微信 / 邮箱联系。</p>
+      <h2 style={{ fontSize: 18, marginTop: 32, marginBottom: 12 }}>7. 聯絡方式</h2>
+      <p>如有疑問，請通過本平臺公佈的客服微信 / 郵箱聯絡。</p>
 
         <p style={{ marginTop: 48, fontSize: 12, color: 'var(--tx-3)' }}>
-          <a href="/privacy" style={{ color: 'var(--ac)' }}>隐私政策</a> · <a href="/" style={{ color: 'var(--ac)' }}>返回首页</a>
+          <a href="/privacy" style={{ color: 'var(--ac)' }}>隱私政策</a> · <a href="/" style={{ color: 'var(--ac)' }}>返回首頁</a>
         </p>
       </main>
     </>

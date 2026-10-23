@@ -1,15 +1,15 @@
 /**
- * /knowledge/[star]/[topic] — SEO 落地页
+ * /knowledge/[star]/[topic] — SEO 落地頁
  *
- * 14 主星 × 13 topic = 182 个独立 URL
- * 每页含完整的 STAR_DB 4 段论断（一句话定调/核心论断/命盘依据/经典出处）
+ * 14 主星 × 13 topic = 182 個獨立 URL
+ * 每頁含完整的 STAR_DB 4 段論斷（一句話定調/核心論斷/命盤依據/經典出處）
  *
- * SEO 要点：
- *  - title 含主关键词（如"紫微入命宫·倪海厦体系详解"）
- *  - description 用 dingdiao（一句话定调）
- *  - JSON-LD Article 结构化数据
- *  - 内链：同主星其他 12 宫 + 同宫其他 13 主星
- *  - generateStaticParams 静态生成，零运行时开销
+ * SEO 要點：
+ *  - title 含主關鍵詞（如"紫微入命宮·倪海廈體系詳解"）
+ *  - description 用 dingdiao（一句話定調）
+ *  - JSON-LD Article 結構化資料
+ *  - 內鏈：同主星其他 12 宮 + 同宮其他 13 主星
+ *  - generateStaticParams 靜態生成，零執行時開銷
  */
 
 import Link from 'next/link';
@@ -26,13 +26,13 @@ import {
 } from '@/lib/seo/knowledge';
 import { SITE_URL } from '@/lib/site';
 
-// 允许动态参数：如果某个 star/topic 组合不在 generateStaticParams 列表中
-// 也允许运行时按需渲染，避免中文 URL 编码问题导致 404
+// 允許動態引數：如果某個 star/topic 組合不在 generateStaticParams 列表中
+// 也允許執行時按需渲染，避免中文 URL 編碼問題導致 404
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const routes = getAllKnowledgeRoutes();
-  // URL 用拼音 slug 替代中文，避开 Vercel/CDN 中文路由边界问题
+  // URL 用拼音 slug 替代中文，避開 Vercel/CDN 中文路由邊界問題
   return routes.map(r => ({ star: r.slug, topic: r.topic }));
 }
 
@@ -43,9 +43,9 @@ export async function generateMetadata({ params }: { params: Promise<{ star: str
   const data = getKnowledge(star, topic as TopicKey);
   if (!data.exists) return {};
 
-  const title = `${star}入${data.palaceName}宫 · ${data.topicLabel} · 倪海厦体系详解`;
+  const title = `${star}入${data.palaceName}宮 · ${data.topicLabel} · 倪海廈體系詳解`;
   const description = data.parsed.dingdiao
-    || `${star}入${data.palaceName}宫的紫微斗数解读 — 基于倪海厦《天纪》体系与古籍《紫微斗数全集》《骨髓赋》。`;
+    || `${star}入${data.palaceName}宮的紫微斗數解讀 — 基於倪海廈《天紀》體系與古籍《紫微斗數全集》《骨髓賦》。`;
 
   return {
     title,
@@ -60,9 +60,9 @@ export async function generateMetadata({ params }: { params: Promise<{ star: str
       canonical: `${SITE_URL}/knowledge/${slug}/${topic}`,
     },
     keywords: [
-      '紫微斗数', '倪海厦', star, data.palaceName, data.topicLabel,
+      '紫微斗數', '倪海廈', star, data.palaceName, data.topicLabel,
       `${star}${data.palaceName}`, `${star}入${data.palaceName}`,
-      `紫微斗数 ${star}`, '倪海厦紫微斗数', '紫微斗数全集',
+      `紫微斗數 ${star}`, '倪海廈紫微斗數', '紫微斗數全集',
     ],
   };
 }
@@ -83,9 +83,9 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: `${star}入${data.palaceName}宫 · ${data.topicLabel}`,
+    headline: `${star}入${data.palaceName}宮 · ${data.topicLabel}`,
     description: data.parsed.dingdiao,
-    author: { '@type': 'Organization', name: '紫微研究 · 倪海厦正宗' },
+    author: { '@type': 'Organization', name: '紫微研究 · 倪海廈正宗' },
     publisher: {
       '@type': 'Organization',
       name: '紫微研究',
@@ -94,47 +94,47 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
     datePublished: '2026-04-28',
     dateModified: '2026-04-28',
     mainEntityOfPage: `${SITE_URL}/knowledge/${slug}/${topic}`,
-    articleSection: '紫微斗数 · 倪海厦体系',
-    keywords: [`紫微斗数`, star, data.palaceName, data.topicLabel].join(', '),
+    articleSection: '紫微斗數 · 倪海廈體系',
+    keywords: [`紫微斗數`, star, data.palaceName, data.topicLabel].join(', '),
   };
 
   return (
     <div style={{ background: 'var(--bg-page)', minHeight: '100vh' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* 顶栏 */}
+      {/* 頂欄 */}
       <div className="px-6 py-4 flex items-center justify-between"
         style={{ borderBottom: '1px solid rgba(184,146,42,0.15)', background: 'var(--bg-page)' }}>
         <Link href="/" style={{ fontSize: '12px', color: 'var(--ac)', letterSpacing: '0.3em', textDecoration: 'none' }}>
-          ← 首页
+          ← 首頁
         </Link>
         <div style={{ fontSize: '12px', color: 'var(--tx-3)', letterSpacing: '0.2em' }}>
-          倪师方法论 · 知识库
+          倪師方法論 · 知識庫
         </div>
         <Link href="/chart" style={{ fontSize: '12px', color: 'var(--ac)', letterSpacing: '0.2em', textDecoration: 'none' }}>
-          起盘 →
+          起盤 →
         </Link>
       </div>
 
       <article className="max-w-3xl mx-auto px-6 py-12">
-        {/* 面包屑 */}
+        {/* 麵包屑 */}
         <nav style={{ fontSize: '11px', color: 'var(--tx-3)', letterSpacing: '0.1em', marginBottom: '16px' }}>
-          <Link href="/" style={{ color: 'var(--tx-3)', textDecoration: 'none' }}>首页</Link>
+          <Link href="/" style={{ color: 'var(--tx-3)', textDecoration: 'none' }}>首頁</Link>
           <span style={{ margin: '0 8px' }}>/</span>
-          <Link href="/knowledge" style={{ color: 'var(--tx-3)', textDecoration: 'none' }}>知识库</Link>
+          <Link href="/knowledge" style={{ color: 'var(--tx-3)', textDecoration: 'none' }}>知識庫</Link>
           <span style={{ margin: '0 8px' }}>/</span>
           <span>{star}</span>
           <span style={{ margin: '0 8px' }}>·</span>
-          <span style={{ color: 'var(--ac)' }}>{data.palaceName}宫</span>
+          <span style={{ color: 'var(--ac)' }}>{data.palaceName}宮</span>
         </nav>
 
-        {/* 标题区 */}
+        {/* 標題區 */}
         <header style={{ marginBottom: '36px' }}>
           <div style={{ fontSize: '11px', color: 'var(--tx-3)', letterSpacing: '0.25em', marginBottom: '8px' }}>
-            {data.topicLabel} · 倪海厦体系详解
+            {data.topicLabel} · 倪海廈體系詳解
           </div>
           <h1 style={{ fontSize: 'clamp(28px, 5vw, 44px)', fontWeight: 700, color: 'var(--tx-0)', letterSpacing: '0.1em', lineHeight: 1.2 }}>
-            {star}入{data.palaceName}宫
+            {star}入{data.palaceName}宮
           </h1>
           {STAR_BRIEF_SEO[star] && (
             <p style={{ fontSize: '13px', color: 'var(--tx-2)', marginTop: '14px', lineHeight: 1.8 }}>
@@ -143,9 +143,9 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
           )}
         </header>
 
-        {/* 内容 4 段 */}
+        {/* 內容 4 段 */}
         {data.parsed.dingdiao && (
-          <Section title="一句话定调" gradient>
+          <Section title="一句話定調" gradient>
             <p style={{ fontSize: '17px', color: 'var(--tx-0)', lineHeight: 1.9, fontWeight: 500, letterSpacing: '0.04em' }}>
               {data.parsed.dingdiao}
             </p>
@@ -153,7 +153,7 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
         )}
 
         {data.parsed.lundian && (
-          <Section title="核心论断">
+          <Section title="核心論斷">
             <div style={{ fontSize: '15px', color: 'var(--tx-0)', lineHeight: 2, letterSpacing: '0.02em', whiteSpace: 'pre-wrap' }}>
               {data.parsed.lundian}
             </div>
@@ -161,7 +161,7 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
         )}
 
         {data.parsed.yiju && (
-          <Section title="命盘依据">
+          <Section title="命盤依據">
             <div style={{ fontSize: '14px', color: 'var(--tx-0)', lineHeight: 2, letterSpacing: '0.02em', whiteSpace: 'pre-wrap' }}>
               {data.parsed.yiju}
             </div>
@@ -169,7 +169,7 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
         )}
 
         {data.parsed.chuchu && (
-          <Section title="经典出处" minimal>
+          <Section title="經典出處" minimal>
             <div style={{ fontSize: '13px', color: 'var(--tx-2)', lineHeight: 2, letterSpacing: '0.02em', whiteSpace: 'pre-wrap' }}>
               {data.parsed.chuchu}
             </div>
@@ -186,10 +186,10 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
           textAlign: 'center',
         }}>
           <div style={{ fontSize: '14px', color: 'var(--tx-0)', fontWeight: 600, letterSpacing: '0.1em', marginBottom: '6px' }}>
-            想看你自己命盘的{data.topicLabel}？
+            想看你自己命盤的{data.topicLabel}？
           </div>
           <div style={{ fontSize: '12px', color: 'var(--tx-2)', marginBottom: '16px' }}>
-            输入生辰起盘 · 倪师正宗解读 · AI 答疑伴学
+            輸入生辰起盤 · 倪師正宗解讀 · AI 答疑伴學
           </div>
           <Link href="/chart" style={{
             display: 'inline-block',
@@ -203,12 +203,12 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
             textDecoration: 'none',
             boxShadow: '0 4px 12px rgba(184,146,42,0.3)',
           }}>
-            立即起盘 →
+            立即起盤 →
           </Link>
         </div>
 
-        {/* 内链：同主星其他 topic */}
-        <Section title={`${star}星的其他宫位解读`} minimal>
+        {/* 內鏈：同主星其他 topic */}
+        <Section title={`${star}星的其他宮位解讀`} minimal>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {otherTopicsForStar.map(t => {
               const d = getKnowledge(star, t);
@@ -233,8 +233,8 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
           </div>
         </Section>
 
-        {/* 内链：同 topic 其他主星 */}
-        <Section title={`其他主星入${data.palaceName}宫的解读`} minimal>
+        {/* 內鏈：同 topic 其他主星 */}
+        <Section title={`其他主星入${data.palaceName}宮的解讀`} minimal>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {otherStarsForTopic.slice(0, 13).map(s => (
               <Link
@@ -256,7 +256,7 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
           </div>
         </Section>
 
-        {/* 古籍库链接 */}
+        {/* 古籍庫連結 */}
         <div style={{
           marginTop: '40px',
           padding: '16px 20px',
@@ -266,18 +266,18 @@ export default async function KnowledgePage({ params }: { params: Promise<{ star
           textAlign: 'center',
         }}>
           <div style={{ fontSize: '11px', color: 'var(--ac-dim)', letterSpacing: '0.15em', marginBottom: '6px' }}>
-            想读原典？
+            想讀原典？
           </div>
           <Link href="/library" style={{ fontSize: '13px', color: 'var(--ac)', fontWeight: 500, letterSpacing: '0.1em', textDecoration: 'none' }}>
-            📜 查阅古籍原典库 — 紫微斗数全集 / 全书 / 骨髓赋 →
+            📜 查閱古籍原典庫 — 紫微斗數全集 / 全書 / 骨髓賦 →
           </Link>
         </div>
       </article>
 
-      {/* 页脚 */}
+      {/* 頁尾 */}
       <footer style={{ borderTop: '1px solid rgba(184,146,42,0.15)', padding: '20px 24px', textAlign: 'center', fontSize: '11px', color: 'var(--tx-3)', letterSpacing: '0.1em' }}>
-        <div style={{ marginBottom: '6px' }}>紫微研究 · 基于倪海厦正宗体系 · 仅供学习参考</div>
-        <div style={{ opacity: 0.85 }}>本平台不构成任何医疗、投资、法律或重大决策建议</div>
+        <div style={{ marginBottom: '6px' }}>紫微研究 · 基於倪海廈正宗體系 · 僅供學習參考</div>
+        <div style={{ opacity: 0.85 }}>本平臺不構成任何醫療、投資、法律或重大決策建議</div>
       </footer>
     </div>
   );

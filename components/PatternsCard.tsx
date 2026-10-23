@@ -23,8 +23,8 @@ export default function PatternsCard({ chart }: { chart: ZiweiChart }) {
     >
       <div className="text-[10px] tracking-widest mb-3 flex items-center gap-2" style={{ color: 'var(--t-faint)' }}>
         <span style={{ color: 'var(--t-gold)', opacity: 0.6 }}>◉</span>
-        格局识别（严格古书条件）
-        <span className="text-[9px] ml-auto" style={{ color: 'var(--t-faint)', opacity: 0.75 }}>{patterns.length}个</span>
+        格局識別（嚴格古書條件）
+        <span className="text-[9px] ml-auto" style={{ color: 'var(--t-faint)', opacity: 0.75 }}>{patterns.length}個</span>
       </div>
       <div className="space-y-2">
         {patterns.map((p, i) => {
@@ -43,7 +43,7 @@ export default function PatternsCard({ chart }: { chart: ZiweiChart }) {
                 <div className="flex gap-1 ml-auto">
                   {p.palaces.slice(0, 2).map(pa => (
                     <span key={pa} className={`text-[8px] px-1.5 py-px rounded-full border ${st.badge}`}>
-                      {pa.replace('宫', '')}
+                      {pa.replace('宮', '')}
                     </span>
                   ))}
                 </div>
@@ -57,7 +57,7 @@ export default function PatternsCard({ chart }: { chart: ZiweiChart }) {
                 <div className="mt-2 pl-3.5 space-y-0.5">
                   {p.conditions.required.length > 0 && (
                     <div className="text-[9px] leading-relaxed" style={{ color: 'var(--t-text2)', opacity: 0.85 }}>
-                      <span className="font-medium" style={{ color: 'var(--t-gold)' }}>必须</span>
+                      <span className="font-medium" style={{ color: 'var(--t-gold)' }}>必須</span>
                       <span style={{ opacity: 0.6 }}> · </span>
                       {p.conditions.required.join('、')}
                     </div>
@@ -81,7 +81,7 @@ export default function PatternsCard({ chart }: { chart: ZiweiChart }) {
 
               {p.source && (
                 <div className="text-[9px] mt-1.5 pl-3.5" style={{ color: 'var(--t-faint)', opacity: 0.5 }}>
-                  出处 · {p.source}
+                  出處 · {p.source}
                 </div>
               )}
             </motion.div>

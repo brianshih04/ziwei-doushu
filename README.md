@@ -2,11 +2,19 @@
 
 # 紫微斗数 · 开源排盘引擎
 
-[![CI](https://github.com/Renhuai123/ziwei-doushu/actions/workflows/ci.yml/badge.svg)](https://github.com/Renhuai123/ziwei-doushu/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/code-MIT-blue.svg)](./LICENSE)
 [![Dataset: CC BY 4.0](https://img.shields.io/badge/dataset-CC%20BY%204.0-green.svg)](./DATASET-LICENSE)
 
 **中文** · [English](./README.en.md)
+
+</div>
+
+> **Fork 说明（brianshih04）**：基于 [Renhuai123/ziwei-doushu](https://github.com/Renhuai123/ziwei-doushu) 修改，感谢原作者开源排盘引擎与数据集（代码 MIT / 数据 CC BY 4.0，均保留）。本 fork 的新增内容：
+>
+> - **AI 解读接口自实现**：开源版不含的 `/api/interpret`（命盘对话）与 `/api/heming`（合盘分析）改由本仓库实现，走 OpenAI 兼容协议，默认对接 z.ai Coding Plan（GLM 系列，`thinking: disabled` 保证流式首字 3–5 秒），配置见 `.env.example`
+> - **全站繁体中文化**（台湾用语，OpenCC s2twp + iztro `zh-TW`），已修正地支「丑」等命理术语的简繁转换误判，`npm test` 全绿
+> - **AI 分析中指示器**（`AiThinking` 组件）：等待 AI 首字回应期间显示明确状态与计时
+> - 在线示例：[destiny.avision-gb10.org](https://destiny.avision-gb10.org)
 
 </div>
 

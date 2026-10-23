@@ -1,6 +1,7 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import AiThinking from './AiThinking';
 import type { ZiweiChart, Palace } from '@/lib/ziwei/types';
 import type { TimeView } from './TimeNav';
 
@@ -25,123 +26,123 @@ interface InsightPanelProps {
 const TOPICS = [
   { key: 'overview',     label: '命格' },
   { key: 'love',        label: '感情' },
-  { key: 'career',      label: '事业' },
-  { key: 'wealth',      label: '财运' },
+  { key: 'career',      label: '事業' },
+  { key: 'wealth',      label: '財運' },
   { key: 'health',      label: '健康' },
   { key: 'personality', label: '性格' },
 ] as const;
 
 const TOPIC_PROMPTS: Record<string, string> = {
-  overview: `请生成命格总览，按以下结构输出：
+  overview: `請生成命格總覽，按以下結構輸出：
 
 **【命格定性】**
-用一句话概括这个命盘的核心格局与命主气质。
+用一句話概括這個命盤的核心格局與命主氣質。
 
-**【主星解读】**
-命宫主星的核心特质，引用倪海厦原话或观点。
+**【主星解讀】**
+命宮主星的核心特質，引用倪海廈原話或觀點。
 
 **【三方四正】**
-财、官、迁三宫的联动分析及整体格局。
+財、官、遷三宮的聯動分析及整體格局。
 
-**【当前大限】**
-当下大限运势方向与最值得关注的事项。
+**【當前大限】**
+當下大限運勢方向與最值得關注的事項。
 
-**【优势与注意】**
-命盘天赋优势，以及需要注意的风险或功课。`,
+**【優勢與注意】**
+命盤天賦優勢，以及需要注意的風險或功課。`,
 
-  love: `请深度分析感情婚姻运，按以下结构输出：
+  love: `請深度分析感情婚姻運，按以下結構輸出：
 
 **【感情格局】**
-一句话定性感情命格。
+一句話定性感情命格。
 
-**【夫妻宫分析】**
-夫妻宫主星、四化，以及倪海厦体系的具体解读。
+**【夫妻宮分析】**
+夫妻宮主星、四化，以及倪海廈體系的具體解讀。
 
-**【三方联动】**
-相关宫位对感情的影响。
+**【三方聯動】**
+相關宮位對感情的影響。
 
-**【当前大限感情运】**
-当下10年感情走向与关键节点。
+**【當前大限感情運】**
+當下10年感情走向與關鍵節點。
 
-**【实际建议】**
-具体可行的感情建议。`,
+**【實際建議】**
+具體可行的感情建議。`,
 
-  career: `请深度分析事业运，按以下结构输出：
+  career: `請深度分析事業運，按以下結構輸出：
 
-**【事业格局】**
-一句话定性事业命格，宜任职或宜创业。
+**【事業格局】**
+一句話定性事業命格，宜任職或宜創業。
 
-**【官禄宫分析】**
-官禄宫主星、四化，以及倪师对这种配置的判断。
+**【官祿宮分析】**
+官祿宮主星、四化，以及倪師對這種配置的判斷。
 
-**【财帛宫联动】**
-财运与事业的关系，财路来源分析。
+**【財帛宮聯動】**
+財運與事業的關係，財路來源分析。
 
-**【当前大限事业运】**
-当下10年事业走向。
+**【當前大限事業運】**
+當下10年事業走向。
 
-**【实际建议】**
-适合的方向、行业与策略。`,
+**【實際建議】**
+適合的方向、行業與策略。`,
 
-  wealth: `请深度分析财运，按以下结构输出：
+  wealth: `請深度分析財運，按以下結構輸出：
 
-**【财运格局】**
-一句话定性财运模式，是主动财还是被动财。
+**【財運格局】**
+一句話定性財運模式，是主動財還是被動財。
 
-**【财帛宫分析】**
-财帛宫主星、四化，财富来源与流动模式。
+**【財帛宮分析】**
+財帛宮主星、四化，財富來源與流動模式。
 
-**【田宅宫（财库）】**
-积蓄能力与不动产运势分析。
+**【田宅宮（財庫）】**
+積蓄能力與不動產運勢分析。
 
-**【当前大限财运】**
-当下财运走向与注意事项。
+**【當前大限財運】**
+當下財運走向與注意事項。
 
-**【理财建议】**
-具体的财务建议。`,
+**【理財建議】**
+具體的財務建議。`,
 
-  health: `请分析健康运势，按以下结构输出：
+  health: `請分析健康運勢，按以下結構輸出：
 
-**【疾厄宫主星】**
-疾厄宫星曜与健康含义。
+**【疾厄宮主星】**
+疾厄宮星曜與健康含義。
 
-**【主要风险】**
-结合倪海厦子午流注理论，分析主要健康隐患与需关注的部位。
+**【主要風險】**
+結合倪海廈子午流注理論，分析主要健康隱患與需關注的部位。
 
-**【大限健康走势】**
-当下健康趋势与关键时间段。
+**【大限健康走勢】**
+當下健康趨勢與關鍵時間段。
 
-**【预防建议】**
-具体注意事项与养生方向。`,
+**【預防建議】**
+具體注意事項與養生方向。`,
 
-  personality: `请深度解析性格特质，按以下结构输出：
+  personality: `請深度解析性格特質，按以下結構輸出：
 
-**【命宫主星性格】**
-命宫主星的核心性格特质，引用倪师原话。
+**【命宮主星性格】**
+命宮主星的核心性格特質，引用倪師原話。
 
-**【三方性格综合】**
-财、官、迁三宫对性格的影响，全貌描绘。
+**【三方性格綜合】**
+財、官、遷三宮對性格的影響，全貌描繪。
 
-**【人际关系模式】**
-与他人互动方式、待人处世风格。
+**【人際關係模式】**
+與他人互動方式、待人處世風格。
 
-**【优势与人生课题】**
-天赋优势，以及需要面对的人生功课。`,
+**【優勢與人生課題】**
+天賦優勢，以及需要面對的人生功課。`,
 };
 
 const PALACE_ROLES: Record<string, string> = {
-  '命宫':   '自我、性格、先天格局',
-  '兄弟宫': '兄弟关系、合伙人',
-  '夫妻宫': '感情关系、婚姻状态',
-  '子女宫': '子女缘分、下属关系',
-  '财帛宫': '财运来源、收入方式',
-  '疾厄宫': '身体健康、意外',
-  '迁移宫': '外出机遇、人际格局',
-  '交友宫': '朋友圈、贵人、小人',
-  '官禄宫': '事业成就、社会地位',
-  '田宅宫': '不动产、家庭环境',
-  '福德宫': '精神享受、内心福分',
-  '父母宫': '父母关系、文书契约',
+  '命宮':   '自我、性格、先天格局',
+  '兄弟宮': '兄弟關係、合夥人',
+  '夫妻宮': '感情關係、婚姻狀態',
+  '子女宮': '子女緣分、下屬關係',
+  '財帛宮': '財運來源、收入方式',
+  '疾厄宮': '身體健康、意外',
+  '遷移宮': '外出機遇、人際格局',
+  '交友宮': '朋友圈、貴人、小人',
+  '官祿宮': '事業成就、社會地位',
+  '田宅宮': '不動產、家庭環境',
+  '福德宮': '精神享受、內心福分',
+  '父母宮': '父母關係、文書契約',
 };
 
 /** Render AI markdown: **【Title】** → gold header, **bold** → strong */
@@ -205,7 +206,7 @@ export default function InsightPanel({ chart, selectedPalace, selectedSiHua }: I
     }
   }, [messages]);
 
-  // Auto-generate 命格总览 on mount
+  // Auto-generate 命格總覽 on mount
   useEffect(() => {
     if (autoLoaded.current) return;
     autoLoaded.current = true;
@@ -220,56 +221,56 @@ export default function InsightPanel({ chart, selectedPalace, selectedSiHua }: I
     const majorStars = selectedPalace.stars.filter(s => s.type === 'major');
     const starDesc = majorStars.length > 0
       ? majorStars.map(s => `${s.name}${s.siHua ? '化' + s.siHua : ''}`).join('、')
-      : '空宫（借对宫）';
+      : '空宮（借對宮）';
     const role = PALACE_ROLES[selectedPalace.name] ?? '';
 
-    const prompt = `请重点分析【${selectedPalace.name}】（主管：${role}），该宫主星为${starDesc}，按以下结构输出：
+    const prompt = `請重點分析【${selectedPalace.name}】（主管：${role}），該宮主星為${starDesc}，按以下結構輸出：
 
-**【宫位定性】**
-${selectedPalace.name}在命盘中的意义，以及这种星曜配置的整体判断。
+**【宮位定性】**
+${selectedPalace.name}在命盤中的意義，以及這種星曜配置的整體判斷。
 
-**【主星解读】**
-主星在此宫的倪海厦体系解读，引用具体观点。
+**【主星解讀】**
+主星在此宮的倪海廈體系解讀，引用具體觀點。
 
-**【三方四正联动】**
-三方四正宫位对此宫的影响。
+**【三方四正聯動】**
+三方四正宮位對此宮的影響。
 
-**【实际建议】**
-基于此宫的具体建议。`;
+**【實際建議】**
+基於此宮的具體建議。`;
 
     sendMessage(prompt, true);
   }, [selectedPalace]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // 注入四化飞化分析
+  // 注入四化飛化分析
   useEffect(() => {
     if (!selectedSiHua) return;
     const key = `${selectedSiHua.starName}-${selectedSiHua.siHua}-${selectedSiHua.view}`;
     if (key === lastSiHuaKey.current) return;
     lastSiHuaKey.current = key;
 
-    // 找出该星所在宫位
+    // 找出該星所在宮位
     const palaceOfStar = chart.palaces.find(p =>
       p.stars.some(s => s.name === selectedSiHua.starName)
     );
-    const palaceName = palaceOfStar?.name ?? '未知宫位';
+    const palaceName = palaceOfStar?.name ?? '未知宮位';
     const viewLabel = selectedSiHua.view === 'daxian' ? '大限' : '流年';
 
-    const prompt = `请分析【${viewLabel}${selectedSiHua.starName}化${selectedSiHua.siHua}】的飞化影响，按以下结构输出：
+    const prompt = `請分析【${viewLabel}${selectedSiHua.starName}化${selectedSiHua.siHua}】的飛化影響，按以下結構輸出：
 
-**【化${selectedSiHua.siHua}基本含义】**
-化${selectedSiHua.siHua}在倪海厦体系中的核心含义，以及${selectedSiHua.starName}化${selectedSiHua.siHua}的特殊含义。
+**【化${selectedSiHua.siHua}基本含義】**
+化${selectedSiHua.siHua}在倪海廈體系中的核心含義，以及${selectedSiHua.starName}化${selectedSiHua.siHua}的特殊含義。
 
-**【落宫影响】**
-${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，该宫主管的领域受到何种影响，倪师如何解读。
+**【落宮影響】**
+${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，該宮主管的領域受到何種影響，倪師如何解讀。
 
-**【三方四正飞化路径】**
-化${selectedSiHua.siHua}入${palaceName}后，对其三方四正（对宫、两个三合宫）的联动影响。
+**【三方四正飛化路徑】**
+化${selectedSiHua.siHua}入${palaceName}後，對其三方四正（對宮、兩個三合宮）的聯動影響。
 
-**【当前运势影响】**
-在${viewLabel}时间维度下，此化${selectedSiHua.siHua}对命主近期运势的具体影响。
+**【當前運勢影響】**
+在${viewLabel}時間維度下，此化${selectedSiHua.siHua}對命主近期運勢的具體影響。
 
-**【实际建议】**
-基于此四化的具体可操作建议。`;
+**【實際建議】**
+基於此四化的具體可操作建議。`;
 
     sendMessage(prompt, true);
   }, [selectedSiHua]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -282,8 +283,8 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
         body: JSON.stringify({ chart, messages: apiMessages }),
       });
       if (res.status === 404) throw new Error('api-missing');
-      if (!res.ok) throw new Error('请求失败');
-      if (!res.body) throw new Error('无响应流');
+      if (!res.ok) throw new Error('請求失敗');
+      if (!res.body) throw new Error('無響應流');
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
@@ -312,7 +313,7 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
       }
     } catch (e) {
       const missing = e instanceof Error && e.message === 'api-missing';
-      setMessages(prev => [...prev, { role: 'assistant', content: missing ? '开源版不含 AI 解读接口（/api/interpret），需要你自己实现后才能用，详见 README「快速开始」。排盘本身不需要任何 API Key。' : '解读失败，请稍后重试。' }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: missing ? '開源版不含 AI 解讀介面（/api/interpret），需要你自己實現後才能用，詳見 README「快速開始」。排盤本身不需要任何 API Key。' : '解讀失敗，請稍後重試。' }]);
     } finally {
       setLoading(false);
       loadingRef.current = false;
@@ -380,7 +381,7 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <div className="text-4xl mb-3" style={{ color: 'var(--t-gold)', opacity: 0.1 }}>✦</div>
-            <p className="text-[10px] animate-pulse" style={{ color: 'var(--t-faint)' }}>命格解读生成中…</p>
+            <p className="text-[10px] animate-pulse" style={{ color: 'var(--t-faint)' }}>命格解讀生成中…</p>
           </div>
         )}
 
@@ -423,13 +424,17 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
                   style={{ color: 'var(--t-faint)' }}
                 >
                   <span style={{ color: 'var(--t-gold)', opacity: 0.4 }}>✦</span>
-                  命理解读
+                  命理解讀
                 </div>
                 <AiContent text={msg.content} streaming={loading && isLastMsg} />
               </motion.div>
             );
           })}
         </AnimatePresence>
+        {/* 等 AI 首字回應期間（串流開始前）的明確回饋；有內容後交給串流游標 */}
+        {loading && !(messages.length > 0 && messages[messages.length - 1].role === 'assistant' && messages[messages.length - 1].content) && (
+          <AiThinking label="AI 正在解讀" />
+        )}
       </div>
 
       {/* ── Input ── */}
@@ -440,7 +445,7 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && !e.shiftKey && handleSend()}
-            placeholder="继续追问，如：今年适合换工作吗？"
+            placeholder="繼續追問，如：今年適合換工作嗎？"
             disabled={loading}
             className="flex-1 rounded-lg px-3 py-2 text-[11px] focus:outline-none transition-colors"
             style={{
@@ -459,7 +464,7 @@ ${selectedSiHua.starName}化${selectedSiHua.siHua}落在【${palaceName}】，�
               color: 'var(--t-gold)',
             }}
           >
-            {loading ? '…' : '追问'}
+            {loading ? '…' : '追問'}
           </button>
         </div>
       </div>

@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 import type { FamousPerson } from '@/lib/ziwei/famous';
 
 const CATEGORY_COLORS: Record<string, string> = {
-  '商业': '#4ade80',
-  '文艺': '#c084fc',
+  '商業': '#4ade80',
+  '文藝': '#c084fc',
   '科技': '#60a5fa',
-  '体育': '#fb923c',
-  '历史': '#facc15',
+  '體育': '#fb923c',
+  '歷史': '#facc15',
 };
 
 export default function FamousPersonCard({ person }: { person: FamousPerson }) {
@@ -25,7 +25,7 @@ export default function FamousPersonCard({ person }: { person: FamousPerson }) {
     >
       <div className="text-[10px] tracking-widest mb-3 flex items-center gap-2" style={{ color: 'var(--t-faint)' }}>
         <span style={{ color: catColor, opacity: 0.9, fontSize: '12px' }}>★</span>
-        名人命盘
+        名人命盤
         <span className="text-[9px] px-2 py-0.5 rounded-full ml-auto"
           style={{ color: catColor, background: catColor + '18', border: `1px solid ${catColor}40` }}>
           {person.category}
@@ -52,12 +52,12 @@ export default function FamousPersonCard({ person }: { person: FamousPerson }) {
             background: catColor + '0c',
             border: `1px solid ${catColor}25`,
           }}>
-          <span style={{ color: catColor, fontWeight: 600, marginRight: '4px' }}>命盘亮点：</span>
+          <span style={{ color: catColor, fontWeight: 600, marginRight: '4px' }}>命盤亮點：</span>
           {person.notable}
         </div>
 
         <div className="text-[10px] mt-2" style={{ color: 'var(--t-faint)', opacity: 0.6, lineHeight: 1.5 }}>
-          ⚠️ 出生时辰为公开文献估算值，仅供研究参考。下方 AI 解读基于此命盘自动生成，与本人无关。
+          ⚠️ 出生時辰為公開文獻估算值，僅供研究參考。下方 AI 解讀基於此命盤自動生成，與本人無關。
         </div>
       </div>
     </motion.div>

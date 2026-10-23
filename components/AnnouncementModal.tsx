@@ -2,15 +2,15 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// 公告版本号——以后想再弹新公告，改这里就行（旧版 key 失效，新版重新弹一次）
+// 公告版本號——以後想再彈新公告，改這裡就行（舊版 key 失效，新版重新彈一次）
 const ANNOUNCEMENT_VERSION = '2026-05-01';
 const STORAGE_KEY = `announcement_seen_${ANNOUNCEMENT_VERSION}`;
 
 export default function AnnouncementModal() {
-  // 默认不开，client 端 useEffect 检查 localStorage 后立即决定是否弹出。
-  // 没看过 → 立即覆盖首页；看过 → 不再弹。
+  // 預設不開，client 端 useEffect 檢查 localStorage 後立即決定是否彈出。
+  // 沒看過 → 立即覆蓋首頁；看過 → 不再彈。
   const [open, setOpen] = useState(false);
-  const [decided, setDecided] = useState(false); // hydration 完成标志
+  const [decided, setDecided] = useState(false); // hydration 完成標誌
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -21,7 +21,7 @@ export default function AnnouncementModal() {
     setDecided(true);
   }, []);
 
-  // 公告打开时锁住 body 滚动，防止背后首页可滚（仪式感更强）
+  // 公告開啟時鎖住 body 滾動，防止背後首頁可滾（儀式感更強）
   useEffect(() => {
     if (typeof document === 'undefined') return;
     if (open) {
@@ -46,7 +46,7 @@ export default function AnnouncementModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          // 不点击外部关闭——强制用户按"我知道了"按钮才能进入首页
+          // 不點選外部關閉——強制使用者按"我知道了"按鈕才能進入首頁
           style={{
             position: 'fixed', inset: 0, zIndex: 9999,
             background: 'rgba(20,12,2,0.88)',
@@ -76,7 +76,7 @@ export default function AnnouncementModal() {
               fontFamily: '"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
             }}
           >
-            {/* 顶部装饰 + 关闭按钮 */}
+            {/* 頂部裝飾 + 關閉按鈕 */}
             <div style={{
               padding: '22px 28px 14px',
               borderBottom: '1px solid rgba(184,146,42,0.15)',
@@ -88,11 +88,11 @@ export default function AnnouncementModal() {
                 A LETTER TO USERS
               </div>
               <h2 style={{ fontSize: '19px', fontWeight: 700, color: '#3d2f10', letterSpacing: '0.08em', margin: 0 }}>
-                致正在使用这个平台的你
+                致正在使用這個平臺的你
               </h2>
               <button
                 onClick={close}
-                aria-label="关闭"
+                aria-label="關閉"
                 style={{
                   position: 'absolute', top: '14px', right: '16px',
                   width: '28px', height: '28px',
@@ -106,7 +106,7 @@ export default function AnnouncementModal() {
               >×</button>
             </div>
 
-            {/* 限时免费 banner（最关键信息，置顶强调）*/}
+            {/* 限時免費 banner（最關鍵資訊，置頂強調）*/}
             <div style={{
               margin: '14px 22px 0',
               padding: '12px 16px',
@@ -117,16 +117,16 @@ export default function AnnouncementModal() {
               textAlign: 'center',
             }}>
               <div style={{ fontSize: '10px', letterSpacing: '0.3em', color: '#c45a2d', marginBottom: '4px', fontWeight: 600 }}>
-                LIMITED TIME · 限时回馈
+                LIMITED TIME · 限時回饋
               </div>
               <div style={{ fontSize: '14px', color: '#8b3a1a', fontWeight: 600, lineHeight: 1.6 }}>
                 <span style={{ fontSize: '16px', color: '#c45a2d', fontWeight: 700 }}>5 月 1 日 — 5 月 8 日</span>
                 <br />
-                平台全部功能 + AI 提问 全部免费开放
+                平臺全部功能 + AI 提問 全部免費開放
               </div>
             </div>
 
-            {/* 正文（可滚动）*/}
+            {/* 正文（可滾動）*/}
             <div style={{
               padding: '18px 28px 24px',
               overflowY: 'auto',
@@ -136,13 +136,13 @@ export default function AnnouncementModal() {
               flex: 1,
             }}>
               <p style={{ margin: '0 0 12px' }}>
-                说实话，我真的没想到会有这么大的流量。
+                說實話，我真的沒想到會有這麼大的流量。
               </p>
               <p style={{ margin: '0 0 12px' }}>
-                最开始做这个平台，我的初心其实很简单：在 AI 时代，把倪师这套原本复杂、门槛很高的体系，尽量做得更简单、更高效、更容易理解。
+                最開始做這個平臺，我的初心其實很簡單：在 AI 時代，把倪師這套原本複雜、門檻很高的體系，儘量做得更簡單、更高效、更容易理解。
               </p>
               <p style={{ margin: '0 0 12px' }}>
-                不一定每个人都要先学很久、看很多书，才能接触这些内容。我们希望通过这个平台，让大家用更轻松的方式，获得一些对自我、人生阶段、选择方向的参考和启发。
+                不一定每個人都要先學很久、看很多書，才能接觸這些內容。我們希望通過這個平臺，讓大家用更輕鬆的方式，獲得一些對自我、人生階段、選擇方向的參考和啟發。
               </p>
               <p style={{
                 margin: '0 0 12px',
@@ -153,26 +153,26 @@ export default function AnnouncementModal() {
                 fontStyle: 'italic',
                 color: '#7a5e2a',
               }}>
-                倪师曾说过一句话：人怎么可能发明出完全没有用的东西呢？
+                倪師曾說過一句話：人怎麼可能發明出完全沒有用的東西呢？
               </p>
               <p style={{ margin: '0 0 12px' }}>
-                我一直觉得，易经如此，紫微斗数也是如此。它们真正有价值的地方，不是让人被某个结果困住，而是让我们更早看见自己的性格惯性、人生课题和选择方向。看见之后，才有机会调整；理解之后，才有机会变得更好。
+                我一直覺得，易經如此，紫微斗數也是如此。它們真正有價值的地方，不是讓人被某個結果困住，而是讓我們更早看見自己的性格慣性、人生課題和選擇方向。看見之後，才有機會調整；理解之後，才有機會變得更好。
               </p>
               <p style={{ margin: '0 0 12px' }}>
-                至于那些说&ldquo;你当下在看这些，其实也是命运的一部分&rdquo;之类的话，我就不多评价了。
+                至於那些說&ldquo;你當下在看這些，其實也是命運的一部分&rdquo;之類的話，我就不多評價了。
               </p>
               <p style={{ margin: '0 0 12px' }}>
-                这几天账号被小红书抬走了，<strong style={{ color: '#c45a2d' }}>5 月 3 号开始恢复正常更新。</strong>
+                這幾天賬號被小紅書抬走了，<strong style={{ color: '#c45a2d' }}>5 月 3 號開始恢復正常更新。</strong>
               </p>
               <p style={{ margin: '0 0 16px', color: '#3d2f10', fontWeight: 500 }}>
-                最后，真心祝愿大家都能越来越了解自己，越来越爱自己，也越来越有能力爱身边的人。
+                最後，真心祝願大家都能越來越瞭解自己，越來越愛自己，也越來越有能力愛身邊的人。
               </p>
               <p style={{ margin: 0, textAlign: 'right', fontSize: '13px', color: '#7a5e2a' }}>
-                ——谢谢大家 🙏
+                ——謝謝大家 🙏
               </p>
             </div>
 
-            {/* 底部按钮 */}
+            {/* 底部按鈕 */}
             <div style={{
               padding: '14px 22px',
               borderTop: '1px solid rgba(184,146,42,0.15)',

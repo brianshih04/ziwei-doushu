@@ -13,26 +13,26 @@ interface TimeNavProps {
   onYearChange: (year: number) => void;
 }
 
-/** 由年份计算天干索引 (0-9) */
+/** 由年份計算天干索引 (0-9) */
 export function getYearStemIndex(year: number): number {
   return ((year - 4) % 10 + 10) % 10;
 }
 
-/** 根据天干索引返回四化映射：starName → SiHua */
+/** 根據天干索引返回四化對映：starName → SiHua */
 export function buildSiHuaOverlay(stemIndex: number): Record<string, string> {
   const stars = SI_HUA_TABLE[stemIndex];
   if (!stars) return {};
   return {
-    [stars[0]]: '禄',
-    [stars[1]]: '权',
+    [stars[0]]: '祿',
+    [stars[1]]: '權',
     [stars[2]]: '科',
     [stars[3]]: '忌',
   };
 }
 
 const SIHUA_COLORS: Record<string, string> = {
-  '禄': '#4ade80',
-  '权': '#60a5fa',
+  '祿': '#4ade80',
+  '權': '#60a5fa',
   '科': '#facc15',
   '忌': '#f87171',
 };
@@ -46,7 +46,7 @@ export default function TimeNav({
 }: TimeNavProps) {
   const currentDx = chart.daXians[chart.currentDaXianIndex];
 
-  // 计算当前叠加四化信息
+  // 計算當前疊加四化資訊
   const getOverlayInfo = (): { stemName: string; overlay: Record<string, string> } | null => {
     if (view === 'mingpan') return null;
 
@@ -96,7 +96,7 @@ export default function TimeNav({
           {currentDx ? `大限 ${currentDx.startAge}–${currentDx.endAge}` : '大限'}
         </TabButton>
 
-        {/* 流年 — 含年份切换 */}
+        {/* 流年 — 含年份切換 */}
         <div
           className="relative flex-1 flex items-center justify-center rounded-lg py-1.5 gap-1 transition-all duration-200"
           style={{
@@ -142,7 +142,7 @@ export default function TimeNav({
         </div>
       </div>
 
-      {/* 叠加四化说明行 */}
+      {/* 疊加四化說明行 */}
       {overlayInfo && (
         <motion.div
           initial={{ opacity: 0, y: -4 }}
@@ -153,7 +153,7 @@ export default function TimeNav({
           <span className="text-[9px]" style={{ color: 'var(--t-faint)' }}>
             {view === 'daxian' ? '大限' : `${liunianYear}`}·{overlayInfo.stemName}年四化：
           </span>
-          {(['禄', '权', '科', '忌'] as const).map(sh => {
+          {(['祿', '權', '科', '忌'] as const).map(sh => {
             const starName = Object.keys(overlayInfo.overlay).find(k => overlayInfo.overlay[k] === sh);
             if (!starName) return null;
             return (

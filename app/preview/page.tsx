@@ -6,16 +6,16 @@ import ScrollIntro from '@/components/ScrollIntro';
 
 export default function PreviewPage() {
   const router = useRouter();
-  // replayKey 用于强制重置 ScrollIntro（用户点"再播放一次"时）
+  // replayKey 用於強制重置 ScrollIntro（使用者點"再播放一次"時）
   const [replayKey, setReplayKey] = useState(0);
   const [done, setDone] = useState(false);
 
   return (
     <>
-      {/* 卷轴开场动画 */}
+      {/* 卷軸開場動畫 */}
       <ScrollIntro key={replayKey} onComplete={() => setDone(true)} />
 
-      {/* 动画结束后的「样片说明 + 操作按钮」面板 */}
+      {/* 動畫結束後的「樣片說明 + 操作按鈕」面板 */}
       {done && (
         <main style={{
           minHeight: '100vh',
@@ -37,7 +37,7 @@ export default function PreviewPage() {
             marginBottom: '16px',
             fontWeight: 600,
           }}>
-            紫微卷轴 · 开场预览
+            紫微卷軸 · 開場預覽
           </h1>
           <p style={{
             fontSize: '14px', color: '#a89878',
@@ -46,8 +46,8 @@ export default function PreviewPage() {
             marginBottom: '40px',
             fontFamily: '"STKaiti", "Kaiti SC", serif',
           }}>
-            刚才看到的卷轴效果会在每次进入主页时缓缓铺开。<br />
-            如果满意，告诉我，我把它接到主页 / 上线。
+            剛才看到的卷軸效果會在每次進入主頁時緩緩鋪開。<br />
+            如果滿意，告訴我，我把它接到主頁 / 上線。
           </p>
 
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '24px' }}>
@@ -80,7 +80,7 @@ export default function PreviewPage() {
                 cursor: 'pointer',
               }}
             >
-              进 入 原 版 首 页
+              進 入 原 版 首 頁
             </button>
           </div>
 
@@ -91,12 +91,12 @@ export default function PreviewPage() {
           }}>
             <Link href="/" style={{ color: 'inherit', textDecoration: 'none' }}>原版 ↗</Link>
             <span>·</span>
-            <Link href="/chart" style={{ color: 'inherit', textDecoration: 'none' }}>命盘</Link>
+            <Link href="/chart" style={{ color: 'inherit', textDecoration: 'none' }}>命盤</Link>
             <span>·</span>
-            <Link href="/heming" style={{ color: 'inherit', textDecoration: 'none' }}>合盘</Link>
+            <Link href="/heming" style={{ color: 'inherit', textDecoration: 'none' }}>合盤</Link>
           </div>
 
-          {/* 时间轴说明 */}
+          {/* 時間軸說明 */}
           <div style={{
             marginTop: '64px',
             padding: '24px 32px',
@@ -109,13 +109,13 @@ export default function PreviewPage() {
             fontFamily: '"STKaiti", serif',
             textAlign: 'left',
           }}>
-            <div style={{ color: '#c89647', marginBottom: '12px', letterSpacing: '0.2em', fontSize: '11px' }}>动画时间轴</div>
-            <div>· 0.0 ~ 1.7 s &nbsp;&nbsp;卷轴从中央向两侧展开</div>
-            <div>· 1.9 ~ 2.7 s &nbsp;&nbsp;宣纸内容浮现（标题 + 副标 + 朱砂印）</div>
-            <div>· 2.7 ~ 3.5 s &nbsp;&nbsp;停留欣赏</div>
-            <div>· 3.5 ~ 4.2 s &nbsp;&nbsp;整体淡出，进入主页</div>
+            <div style={{ color: '#c89647', marginBottom: '12px', letterSpacing: '0.2em', fontSize: '11px' }}>動畫時間軸</div>
+            <div>· 0.0 ~ 1.7 s &nbsp;&nbsp;卷軸從中央向兩側展開</div>
+            <div>· 1.9 ~ 2.7 s &nbsp;&nbsp;宣紙內容浮現（標題 + 副標 + 硃砂印）</div>
+            <div>· 2.7 ~ 3.5 s &nbsp;&nbsp;停留欣賞</div>
+            <div>· 3.5 ~ 4.2 s &nbsp;&nbsp;整體淡出，進入主頁</div>
             <div style={{ marginTop: '12px', color: '#6e6048', fontSize: '11px' }}>
-              用户随时可点右下「跳过」直接进入主页。
+              使用者隨時可點右下「跳過」直接進入主頁。
             </div>
           </div>
         </main>

@@ -1,8 +1,8 @@
 /**
- * SEO 知识页 — 数据 helper
+ * SEO 知識頁 — 資料 helper
  *
- * 14 主星 × 13 topic = 182 个独立 SEO URL
- * 每页都是 STAR_DB 中对应字段的 4 段 markers（一句话定调/核心论断/命盘依据/经典出处）
+ * 14 主星 × 13 topic = 182 個獨立 SEO URL
+ * 每頁都是 STAR_DB 中對應欄位的 4 段 markers（一句話定調/核心論斷/命盤依據/經典出處）
  */
 
 import { STAR_DB } from '@/lib/ziwei/db-analysis';
@@ -10,26 +10,26 @@ import type { TopicKey } from '@/lib/ziwei/db-analysis';
 import { TOPIC_PALACE_NAME, TOPIC_LABEL } from '@/lib/ziwei/db-analysis';
 
 export const ALL_STARS = [
-  '紫微', '天机', '太阳', '武曲', '天同', '廉贞', '天府',
-  '太阴', '贪狼', '巨门', '天相', '天梁', '七杀', '破军',
+  '紫微', '天機', '太陽', '武曲', '天同', '廉貞', '天府',
+  '太陰', '貪狼', '巨門', '天相', '天梁', '七殺', '破軍',
 ];
 
-// 主星名 ↔ 拼音 slug 映射（URL 用 slug，避免中文 URL 在 Vercel/CDN 上的边界问题）
+// 主星名 ↔ 拼音 slug 對映（URL 用 slug，避免中文 URL 在 Vercel/CDN 上的邊界問題）
 export const STAR_TO_SLUG: Record<string, string> = {
   '紫微': 'ziwei',
-  '天机': 'tianji',
-  '太阳': 'taiyang',
+  '天機': 'tianji',
+  '太陽': 'taiyang',
   '武曲': 'wuqu',
   '天同': 'tiantong',
-  '廉贞': 'lianzhen',
+  '廉貞': 'lianzhen',
   '天府': 'tianfu',
-  '太阴': 'taiyin',
-  '贪狼': 'tanlang',
-  '巨门': 'jumen',
+  '太陰': 'taiyin',
+  '貪狼': 'tanlang',
+  '巨門': 'jumen',
   '天相': 'tianxiang',
   '天梁': 'tianliang',
-  '七杀': 'qisha',
-  '破军': 'pojun',
+  '七殺': 'qisha',
+  '破軍': 'pojun',
 };
 
 export const SLUG_TO_STAR: Record<string, string> = Object.fromEntries(
@@ -85,7 +85,7 @@ interface ParsedContent {
 function parseStarContent(content: string): ParsedContent {
   const out: ParsedContent = { dingdiao: '', lundian: '', yiju: '', chuchu: '', raw: content, hasMarkers: false };
   if (!content) return out;
-  if (!content.includes('**【一句话定调】**') && !content.includes('**【核心论断】**')) {
+  if (!content.includes('**【一句話定調】**') && !content.includes('**【核心論斷】**')) {
     out.lundian = content;
     return out;
   }
@@ -100,10 +100,10 @@ function parseStarContent(content: string): ParsedContent {
     const p = parts[i];
     const end = i + 1 < parts.length ? parts[i + 1].start : content.length;
     const text = content.slice(p.markerEnd, end).trim();
-    if (p.name === '一句话定调') out.dingdiao = text;
-    else if (p.name === '核心论断') out.lundian = text;
-    else if (p.name === '命盘依据') out.yiju = text;
-    else if (p.name === '经典出处') out.chuchu = text;
+    if (p.name === '一句話定調') out.dingdiao = text;
+    else if (p.name === '核心論斷') out.lundian = text;
+    else if (p.name === '命盤依據') out.yiju = text;
+    else if (p.name === '經典出處') out.chuchu = text;
   }
   return out;
 }
@@ -131,7 +131,7 @@ export function getKnowledge(star: string, topic: TopicKey): KnowledgeData {
   };
 }
 
-/** 生成所有 14×13 组合（用于 generateStaticParams） */
+/** 生成所有 14×13 組合（用於 generateStaticParams） */
 export function getAllKnowledgeRoutes() {
   const routes: { star: string; slug: string; topic: TopicKey }[] = [];
   for (const star of ALL_STARS) {
@@ -143,20 +143,20 @@ export function getAllKnowledgeRoutes() {
   return routes;
 }
 
-/** 主星属性简介（用于 SEO 页"了解 XX 星"section） */
+/** 主星屬性簡介（用於 SEO 頁"瞭解 XX 星"section） */
 export const STAR_BRIEF_SEO: Record<string, string> = {
-  '紫微': '紫微为帝星，主尊贵，化气为尊。落命主有领导气场、宜大平台高位。',
-  '天机': '天机为智慧星，主善变机灵，化气为善。落命主聪明机变、宜辅佐策划。',
-  '太阳': '太阳为男贵星，主名誉公务，化气为贵。落命主光明磊落、宜公职名声。',
-  '武曲': '武曲为财星，主刚毅果决，化气为财。落命主理财能力强、宜实业金融。',
-  '天同': '天同为福星，主温和享乐，化气为福。落命主性情温和、有福气。',
-  '廉贞': '廉贞为次桃花星，文武兼备，化气为囚。落命主多才多艺、感情丰富。',
-  '天府': '天府为南帝守财星，主稳重保守，化气为令。落命主品行端正、善守财库。',
-  '太阴': '太阴为月亮富贵星，主田宅富贵，化气为富。落命主感情细腻、女命最吉。',
-  '贪狼': '贪狼为桃花欲望星，多才多社交，化气为桃花。落命主多才艺、社交广。',
-  '巨门': '巨门为是非口才星，主辩论传媒，化气为暗。落命主口才好、宜律师教师。',
-  '天相': '天相为印星辅佐，主忠厚老实，化气为印。落命主品行端正、宜行政法务。',
-  '天梁': '天梁为老人星荫星，善逢凶化吉，化气为荫。落命主慈悲善良、宜法律医学。',
-  '七杀': '七杀为将星，主孤独果决冒险，化气为肃杀。落命主刚毅果决、宜军警创业。',
-  '破军': '破军为破坏创新星，主六亲缘薄，化气为耗。落命主开创变动、宜技术专长。',
+  '紫微': '紫微為帝星，主尊貴，化氣為尊。落命主有領導氣場、宜大平臺高位。',
+  '天機': '天機為智慧星，主善變機靈，化氣為善。落命主聰明機變、宜輔佐策劃。',
+  '太陽': '太陽為男貴星，主名譽公務，化氣為貴。落命主光明磊落、宜公職名聲。',
+  '武曲': '武曲為財星，主剛毅果決，化氣為財。落命主理財能力強、宜實業金融。',
+  '天同': '天同為福星，主溫和享樂，化氣為福。落命主性情溫和、有福氣。',
+  '廉貞': '廉貞為次桃花星，文武兼備，化氣為囚。落命主多才多藝、感情豐富。',
+  '天府': '天府為南帝守財星，主穩重保守，化氣為令。落命主品行端正、善守財庫。',
+  '太陰': '太陰為月亮富貴星，主田宅富貴，化氣為富。落命主感情細膩、女命最吉。',
+  '貪狼': '貪狼為桃花慾望星，多才多社交，化氣為桃花。落命主多才藝、社交廣。',
+  '巨門': '巨門為是非口才星，主辯論傳媒，化氣為暗。落命主口才好、宜律師教師。',
+  '天相': '天相為印星輔佐，主忠厚老實，化氣為印。落命主品行端正、宜行政法務。',
+  '天梁': '天梁為老人星蔭星，善逢凶化吉，化氣為蔭。落命主慈悲善良、宜法律醫學。',
+  '七殺': '七殺為將星，主孤獨果決冒險，化氣為肅殺。落命主剛毅果決、宜軍警創業。',
+  '破軍': '破軍為破壞創新星，主六親緣薄，化氣為耗。落命主開創變動、宜技術專長。',
 };
